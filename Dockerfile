@@ -1,20 +1,28 @@
-FROM debian:buster
-
+FROM ros:noetic
 SHELL ["/bin/bash", "-c"]
+
+
+# install ros package
+RUN apt-get update && apt-get install -y \
+    ros-${ROS_DISTRO}-ros-tutorials \
+    ros-${ROS_DISTRO}-common-tutorials && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y \
-    python-dev \
-    python-pip \
+    python3-rosdep \
+    python3-catkin-tools \ 
+    python3-rosinstall-generator \ 
+    python3 \
     python3-dev \
     python3-pip \
-    python3-sip-dev \
     git \
     libboost-dev \
     libeigen3-dev \
     liblz4-dev \
     curl
+
 
 WORKDIR /work
 
@@ -26,6 +34,8 @@ RUN pip install --extra-index-url https://rospypi.github.io/simple/ visualizatio
 
 # COPY rnet_driver .
 
-CMD ["bash"]
+## some reason doesn't do much and need to run in the terminal??
+RUN source /opt/ros/noetic/setup.bash
+RUN source /ros_entrypoint.sh
 
-# sudo docker run -dit -v /home/prl/SharedControl/rnet_driver:/work sharedcontrol
+CMD ["bash"]
