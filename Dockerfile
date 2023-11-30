@@ -34,8 +34,7 @@ RUN pip install --extra-index-url https://rospypi.github.io/simple/ visualizatio
 
 # COPY rnet_driver .
 
-## some reason doesn't do much and need to run in the terminal??
-RUN source /opt/ros/noetic/setup.bash
-RUN source /ros_entrypoint.sh
 
-CMD ["bash"]
+## some reason doesn't do much and need to run in the terminal??
+# RUN source /opt/ros/noetic/setup.bash
+ENTRYPOINT [ "source /ros_entrypoint && bash" ] 
