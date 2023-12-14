@@ -37,4 +37,5 @@ RUN pip install --extra-index-url https://rospypi.github.io/simple/ visualizatio
 
 ## some reason doesn't do much and need to run in the terminal??
 # RUN source /opt/ros/noetic/setup.bash
+RUN source /opt/ros/noetic/setup.bash && catkin build
 ENTRYPOINT [ "source /ros_entrypoint && bash" ] 
